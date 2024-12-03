@@ -4,7 +4,7 @@ export default function Links() {
   return (
     <div className="flex justify-between px-8 py-4 my-4">
       <div className="flex flex-col gap-2">
-        <div>لینک های سریع</div>
+        <div className="font-bold text-xl">لینک های سریع</div>
         <div className="flex flex-col gap-2">
           <Link href="/">ارسال</Link>
           <Link href="/">حریم خصوصی</Link>
@@ -14,7 +14,7 @@ export default function Links() {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div>شرکت ما</div>
+        <div className="font-bold text-xl">شرکت ما</div>
         <div className="flex flex-col gap-2">
           <Link href="/">درباره ما</Link>
           <Link href="/">سوابق ما</Link>
@@ -25,7 +25,7 @@ export default function Links() {
       </div>
       <div className="flex flex-col gap-2">
         {" "}
-        <div>برگه های دیگر</div>
+        <div className="font-bold text-xl">برگه های دیگر</div>
         <div className="flex flex-col gap-2">
           <Link href="/">پرداخت</Link>
           <Link href="/">فروشگاه</Link>
@@ -36,7 +36,7 @@ export default function Links() {
       </div>
       <div className="flex flex-col gap-2">
         {" "}
-        <div>خبرنامه</div>
+        <div className="font-bold text-xl">خبرنامه</div>
         <div>
           <button>اشتراک</button>
           <input type="text" placeholder="ایمیل" />
