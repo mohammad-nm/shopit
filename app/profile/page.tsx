@@ -31,7 +31,7 @@ export default function MyAccount() {
             <div className="border-b border-[#d1d1d1] px-4 py-2">خروج</div>
           </div>
         </div>
-        <div className="w-3/4 p-20">
+        <div className="w-3/4 p-20 flex flex-col gap-y-8">
           <div>سلام mohammad.ro1383 (mohammad.ro1383 نیستید؟ خارج شوید)</div>
           <div>
             از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را
