@@ -2,10 +2,82 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
+import axios from "axios";
 import { useState } from "react";
 export default function MyAccount() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [login, setLogin] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<any>(null);
+  const handleSignup = async () => {
+    setIsLoading(true);
+    if (email === "" || password === "") {
+      setError("لطفا همه فیلد ها را پر کنید");
+      return;
+    }
+    try {
+      const res = await axios.post("http://localhost:5000/api/signup", {
+        email,
+        password,
+      });
+
+      const data = await res.data;
+      console.log(data.response);
+      if (res.status === 200) {
+        console.log(data);
+        setUser(data.response.user);
+        return;
+      }
+
+      if (res.status === 500) {
+        setError("Something went wrong");
+        console.log(data);
+        return;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log(error);
+      setError(error.response.data.message);
+
+      return;
+    }
+    setIsLoading(false);
+  };
+  const handleLogin = async () => {
+    setIsLoading(true);
+    if (email === "" || password === "") {
+      setError("لطفا همه فیلد ها را پر کنید");
+      return;
+    }
+    try {
+      const res = await axios.post("http://localhost:5000/api/signin", {
+        email: email as string,
+        password: password as string,
+      });
+      const data = await res.data;
+      console.log(data.response);
+
+      if (res.status === 200) {
+        setUser(data.response.user);
+        console.log(data);
+        return;
+      }
+      if (res.status === 500) {
+        setError("Something went wrong");
+        console.log(data);
+        return;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log(error);
+      setError(error.response.data.message);
+    }
+    setIsLoading(false);
+  };
   if (!loggedIn)
     return (
       <div className="bg-[#f1f1f1]">
@@ -18,13 +90,19 @@ export default function MyAccount() {
           <div className="flex gap-12 font-semibold text-4xl">
             <button
               className={`${!login ? "text-gray-300" : ""}`}
-              onClick={() => setLogin(true)}
+              onClick={() => {
+                setLogin(true);
+                setError("");
+              }}
             >
               ورود
             </button>
             <button
               className={`${login ? "text-gray-300" : ""}`}
-              onClick={() => setLogin(false)}
+              onClick={() => {
+                setLogin(false);
+                setError("");
+              }}
             >
               عضویت
             </button>
@@ -41,13 +119,18 @@ export default function MyAccount() {
                     className="w-full h-16 p-4 border-[#d9d9d9;
 ] border "
                     placeholder="آدرس ایمیل"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <input
                     type="text"
                     className="w-full h-16 p-4 border-[#d9d9d9;
 ] border "
                     placeholder="رمز عبور"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
+                </div>
+                <div className="mb-4 justify-center items-center flex text-center font-semibold text-red-500 ">
+                  {error && <div className="text-red-500">{error}</div>}
                 </div>
                 <div className="flex items-center gap-2 mb-4 ">
                   <input type="checkbox" />
@@ -58,7 +141,10 @@ export default function MyAccount() {
                 </div>
                 <button
                   className="w-full bg-[#fcb800] h-14 font-semibold text-lg "
-                  onClick={() => setLoggedIn(true)}
+                  onClick={() => {
+                    setError("");
+                    handleLogin();
+                  }}
                 >
                   {" "}
                   ورود
@@ -74,16 +160,26 @@ export default function MyAccount() {
                       className="w-full h-16 p-4 border-[#d9d9d9;
 ] border "
                       placeholder="آدرس ایمیل"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="flex items-center">
                     <input
-                      type="text"
+                      type={showPassword ? "text" : "password"}
                       className="w-full h-16 p-4 border-[#d9d9d9;
 ] border "
                       placeholder="رمز عبور"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
-                    <div className="mr-[-30px]">icon</div>
+                    <div
+                      className="mr-[-30px]"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      icon
+                    </div>
+                  </div>
+                  <div className="mb-4 justify-center items-center flex text-center font-semibold text-red-500 ">
+                    {error && <div className="text-red-500">{error}</div>}
                   </div>
                 </div>
                 <div className="font-semibold text-gray-400 mb-10">
@@ -94,7 +190,10 @@ export default function MyAccount() {
                 <div>
                   <button
                     className="w-full bg-[#fcb800] h-14 font-semibold text-lg"
-                    onClick={() => setLoggedIn(true)}
+                    onClick={() => {
+                      setError("");
+                      handleSignup();
+                    }}
                   >
                     عضویت
                   </button>
