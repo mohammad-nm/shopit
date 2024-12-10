@@ -18,7 +18,7 @@ export default function DevelopedBy() {
       <div className="flex flex-row gap-2 items-center">
         <div>درگاه های پرداخت ایمن ما</div>
         <div>
-          <Image src={paypal} alt="paypal" width={30} height={30} />
+          <Image src={paypal} alt="paypal" width={30} />
         </div>
       </div>
     </div>

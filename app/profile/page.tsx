@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
 import axios from "axios";
 import { useState } from "react";
+import validator from "validator";
 export default function MyAccount() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(true);
@@ -12,11 +13,31 @@ export default function MyAccount() {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<null | object>(null);
+
   const handleSignup = async () => {
     setIsLoading(true);
     if (email === "" || password === "") {
       setError("لطفا همه فیلد ها را پر کنید");
+      setIsLoading(false);
+      return;
+    }
+    if (!validator.isEmail(email)) {
+      setError("آدرس ایمیل معتبر نیست");
+      setIsLoading(false);
+      return;
+    }
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 0,
+        minNumbers: 1,
+        minSymbols: 0,
+      })
+    ) {
+      setError("رمز عبور باید حداقل 6 کاراکتر باشد و شامل حرف کوچک و عدد باشد");
+      setIsLoading(false);
       return;
     }
     try {
@@ -26,21 +47,21 @@ export default function MyAccount() {
       });
 
       const data = await res.data;
-      console.log(data.response);
+
       if (res.status === 200) {
-        console.log(data);
-        setUser(data.response.user);
+        setUser(data.user);
+        setIsLoading(false);
         return;
       }
 
       if (res.status === 500) {
         setError("Something went wrong");
-        console.log(data);
+
         return;
       }
     } catch (error: any) {
       setIsLoading(false);
-      console.log(error);
+
       setError(error.response.data.message);
 
       return;
@@ -51,29 +72,36 @@ export default function MyAccount() {
     setIsLoading(true);
     if (email === "" || password === "") {
       setError("لطفا همه فیلد ها را پر کنید");
+      setIsLoading(false);
       return;
     }
+    if (!validator.isEmail(email)) {
+      setError("آدرس ایمیل معتبر نیست");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const res = await axios.post("http://localhost:5000/api/signin", {
         email: email as string,
         password: password as string,
       });
       const data = await res.data;
-      console.log(data.response);
 
       if (res.status === 200) {
-        setUser(data.response.user);
-        console.log(data);
+        setUser(data.user);
+
+        setIsLoading(false);
         return;
       }
       if (res.status === 500) {
         setError("Something went wrong");
-        console.log(data);
+
         return;
       }
     } catch (error: any) {
       setIsLoading(false);
-      console.log(error);
+
       setError(error.response.data.message);
     }
     setIsLoading(false);
@@ -93,6 +121,8 @@ export default function MyAccount() {
               onClick={() => {
                 setLogin(true);
                 setError("");
+                setEmail("");
+                setPassword("");
               }}
             >
               ورود
@@ -102,9 +132,11 @@ export default function MyAccount() {
               onClick={() => {
                 setLogin(false);
                 setError("");
+                setEmail("");
+                setPassword("");
               }}
             >
-              عضویت
+              {isLoading ? "در حال ارسال..." : "عضویت"}
             </button>
           </div>
           <div className="flex flex-col w-96 bg-[#fff] rounded-md p-8">
@@ -113,7 +145,7 @@ export default function MyAccount() {
                 <div className="font-semibold text-lg mb-10">
                   وارد حساب کاربری خود شوید
                 </div>
-                <div className="gap-4 flex flex-col mb-6">
+                <div>
                   <input
                     type="text"
                     className="w-full h-16 p-4 border-[#d9d9d9;
@@ -121,13 +153,21 @@ export default function MyAccount() {
                     placeholder="آدرس ایمیل"
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                </div>
+                <div className="flex items-center">
                   <input
-                    type="text"
+                    type={showPassword ? "text" : "password"}
                     className="w-full h-16 p-4 border-[#d9d9d9;
 ] border "
                     placeholder="رمز عبور"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <div
+                    className="mr-[-30px]"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    show
+                  </div>
                 </div>
                 <div className="mb-4 justify-center items-center flex text-center font-semibold text-red-500 ">
                   {error && <div className="text-red-500">{error}</div>}
@@ -140,14 +180,15 @@ export default function MyAccount() {
                   رمز عبور خود را فراموش کرده اید؟
                 </div>
                 <button
-                  className="w-full bg-[#fcb800] h-14 font-semibold text-lg "
+                  className={`w-full h-14 font-semibold bg-[#fcb800] text-lg ${
+                    isLoading ? "bg-gray-300" : ""
+                  }`}
                   onClick={() => {
                     setError("");
                     handleLogin();
                   }}
                 >
-                  {" "}
-                  ورود
+                  {isLoading ? "در حال ارسال..." : "ورود"}
                 </button>
               </div>
             ) : (
@@ -185,7 +226,10 @@ export default function MyAccount() {
                 <div className="font-semibold text-gray-400 mb-10">
                   اطلاعات شخصی شما برای پردازش سفارش شما استفاده می‌شود، و
                   پشتیبانی از تجربه شما در این وبسایت، و برای اهداف دیگری که در
-                  سیاست حفظ حریم خصوصی توضیح داده شده است.
+                  <span className="text-blue-500">
+                    سیاست حفظ حریم خصوصی
+                  </span>{" "}
+                  توضیح داده شده است.
                 </div>
                 <div>
                   <button
