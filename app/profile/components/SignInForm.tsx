@@ -5,10 +5,9 @@ import { handleSignin } from "../tools/handleSignin";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import cookiejs from "cookiejs";
+import Cookies from "js-cookie";
 
 export const SignInForm = () => {
-  const cookies = cookiejs();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -24,7 +23,7 @@ export const SignInForm = () => {
       return;
     }
     console.log(res);
-    cookies.set("token", res.token);
+    Cookies.set("session", res.token, { expires: 24 });
     dispatch(setUser(res));
     setIsLoading(false);
   };

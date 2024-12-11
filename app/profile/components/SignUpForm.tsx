@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { handleSignup } from "../tools/handleSignup";
 import { setUser } from "@/store/user";
-
+import Cookies from "js-cookie";
 export const SignUpForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,6 +22,7 @@ export const SignUpForm = () => {
       return;
     }
     console.log(res);
+    Cookies.set("session", JSON.stringify({ token: res.token }));
     dispatch(setUser(res));
     setIsLoading(false);
   };

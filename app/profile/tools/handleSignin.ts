@@ -26,7 +26,7 @@ export const handleSignin = async (email: string, password: string) => {
     const data = await res.data;
 
     if (res.status === 200) {
-      return { ...data.user, token: data.token };
+      return data;
     }
 
     if (res.status === 500) {
