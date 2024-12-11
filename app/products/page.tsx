@@ -1,8 +1,45 @@
+"use client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import Search from "@/components/navbar/Search";
 import Route from "@/components/Route";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Products() {
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("Electronics");
+  const [products, setProducts] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const getProducts = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/products", {
+        category: category,
+        page: page,
+        limit: limit,
+        search: search,
+      });
+      const data = await res.data;
+      if (res.status === 200) {
+        setProducts(data.products);
+        setTotalPages(data.totalPages);
+        setTotalProducts(data.totalProducts);
+        console.log(data);
+        setIsLoading(false);
+        return;
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getProducts();
+  }, [page, limit, category, search]);
   return (
     <div className="bg-[#fff] text-black">
       <Navbar />
@@ -129,21 +166,23 @@ export default function Products() {
                 <option value="ارتباط"> ارتباط</option>
               </select>
             </div>
-            <div>10 محصول یافت شد</div>
+            <div>{totalProducts} محصول یافت شد</div>
           </div>
           <div className="p-4 flex flex-wrap w-full">
-            <div className="w-1/4 hover:border border border-transparent hover:border-gray-400 p-2">
-              <div className="w-full mb-2">
-                <img
-                  src="https://mimwp.com/theme/martfury/demo8/wp-content/uploads/2019/08/18a.jpg"
-                  alt=""
-                />
+            {products.map((product: any) => (
+              <div
+                className="w-1/4 hover:border border border-transparent hover:border-gray-400 p-2"
+                key={product.id}
+              >
+                <div className="w-full mb-2">
+                  <img src={`${product.pictureUrls[0]}`} alt="" />
+                </div>
+                <div className="text-blue-500 mb-2 font-semibold">
+                  {product.title}
+                </div>
+                <div className="font-medium">{product.price} تومان</div>
               </div>
-              <div className="text-blue-500 mb-2 font-semibold">
-                تلویزیون هوشمند سامسونگ
-              </div>
-              <div className="font-medium">750 تومن</div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
