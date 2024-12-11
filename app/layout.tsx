@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
+import ReduxProvider from "@/components/reduxProvider";
 export const metadata: Metadata = {
   title: "Shopit",
   description: "A shopping website built with next js",
@@ -23,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` antialiased font-sans`}>{children}</body>
+      <ReduxProvider>
+        <body className={` antialiased font-sans`}>{children}</body>
+      </ReduxProvider>
     </html>
   );
 }
