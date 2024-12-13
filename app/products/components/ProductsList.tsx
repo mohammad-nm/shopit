@@ -50,19 +50,19 @@ export default function ProductsList() {
   }, [page, limit, category, search, currentPage]);
   const router = useRouter();
   return (
-    <div className="p-4 flex flex-wrap w-full">
+    <div className="p-4 flex flex-wrap w-full mb-10">
       {products.map((product: any) => (
         <div
-          className="w-1/4 hover:border border border-transparent hover:border-gray-400 p-2"
+          className="w-1/4 hover:border border border-transparent hover:border-gray-400 p-2 cursor-pointer mt-6"
           key={product.id}
           onClick={() => {
             router.push(`/products/${product.id}`);
           }}
         >
-          <div className="w-full mb-2">
+          <div className="w-full mb-4">
             <img src={`${product.pictureUrls[0]}`} alt="" />
           </div>
-          <div className="text-blue-500 mb-2 font-semibold">
+          <div className="text-blue-500 mb-4 font-semibold " dir="ltr">
             {product.title}
           </div>
           <div className="font-medium">{product.price} تومان</div>

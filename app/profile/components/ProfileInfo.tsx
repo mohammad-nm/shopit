@@ -1,12 +1,12 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
-import { setIsLoggedIn } from "@/store/ui";
 import { clearUser } from "@/store/user";
 import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
   return (
     <div className="bg-[#fff] ">
       <Navbar />
@@ -20,7 +20,7 @@ export const ProfileInfo = () => {
             <div>photo</div>
             <div className="flex flex-col gap-2">
               <div className="font-bold text-lg">سلام!!!</div>
-              <div className="text-sm">mohammad.ro1383</div>
+              <div className="text-sm">{user.email}</div>
             </div>
           </div>
           <div className="flex flex-col gap-y-2 font-bold text-sm bg-[#f6f6f6] border border-[#d1d1d1] rounded-md w-full">
@@ -51,7 +51,9 @@ export const ProfileInfo = () => {
           </div>
         </div>
         <div className="w-3/4 p-20 flex flex-col gap-y-8 font-semibold text-gray-400">
-          <div>سلام mohammad (mohammad نیستید؟ خارج شوید)</div>
+          <div>
+            سلام {user.name} ({user.email} نیستید؟ خارج شوید)
+          </div>
           <div>
             از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را
             مشاهده، آدرس‌های حمل و نقل و صورتحساب‌تان را مدیریت و جزییات حساب

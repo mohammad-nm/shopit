@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Route from "@/components/Route";
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import WishlistSvg from "@/svg/wishlist.svg";
 import Image from "next/image";
@@ -17,10 +17,11 @@ export default function Product() {
   const [quantity, setQuantity] = useState(1);
   const [like, setLike] = useState(false);
   const userId = useSelector((state: any) => state.user._id);
-
+  const router = useRouter();
   const params = useParams();
   if (!params) {
-    return <div>Product not found</div>;
+    router.push("/products");
+    return;
   }
   const productId = params.id;
   const product = useSelector((state: any) =>
@@ -73,8 +74,8 @@ export default function Product() {
             </div>
             <div className="border-b border-gray-300 pb-4">
               <div className="text-xs flex flex-col gap-1 font-semibold text-gray-400">
-                {product.options.map((option: any) => (
-                  <div key={option}>⁕ {option}</div>
+                {product.options.map((option: any, index: number) => (
+                  <div key={index}>⁕ {option.name}</div>
                 ))}
               </div>
             </div>
@@ -167,7 +168,7 @@ export default function Product() {
           </button>
         </div>
         {description === "description" ? (
-          <div className="mt-10">
+          <div className="mt-10" dir="ltr">
             <div className="text-xl font-bold mb-4">{product.description}</div>
             <div className="text-sm text-gray-500 mb-10">
               {product.description}
@@ -225,9 +226,9 @@ export default function Product() {
               <div className="text-xl font-bold">دیدگاه ها</div>
             </div>
             <div className="mt-10" dir="ltr">
-              {product.comments.map((comment: any) => (
+              {product.comments.map((comment: any, index: number) => (
                 <div
-                  key={comment.id}
+                  key={index}
                   className="flex flex-col gap-2 p-4 bg-gray-100 rounded-md mb-4"
                 >
                   <div className="text-2xl font-bold">

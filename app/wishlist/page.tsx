@@ -1,8 +1,12 @@
+"use client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
+import { useSelector } from "react-redux";
 
 export default function Wishlist() {
+  const liked = useSelector((state: any) => state.user.likes);
+  console.log(liked);
   return (
     <div className="bg-[#fff] text-black">
       <Navbar />

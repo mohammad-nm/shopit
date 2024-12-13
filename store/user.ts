@@ -32,11 +32,14 @@ const userSlice = createSlice({
     setCart: (state, action) => {
       state.cart = action.payload;
     },
+    setLikes: (state, action) => {
+      state.likes = action.payload;
+    },
     clearUser: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setUser, clearUser, setCart } = userSlice.actions;
+export const { setUser, clearUser, setCart, setLikes } = userSlice.actions;
 export default userSlice.reducer;
