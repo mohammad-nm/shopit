@@ -22,7 +22,7 @@ export const handleSignup = async (email: string, password: string) => {
     };
   }
   try {
-    const res = await axios.post("http://localhost:5000/api/signup", {
+    const res = await axios.post(`${process.env.BASE_URL}/api/signup`, {
       email,
       password,
     });

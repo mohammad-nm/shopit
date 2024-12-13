@@ -24,7 +24,7 @@ export default function ProductsList() {
   const getProducts = async () => {
     dispatch(setIsLoading(true));
     try {
-      const res = await axios.post("http://localhost:5000/api/products", {
+      const res = await axios.post(`${process.env.BASE_URL}/api/products`, {
         category: category,
         page: page,
         limit: limit,

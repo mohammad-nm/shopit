@@ -21,7 +21,7 @@ export default function Cart() {
 
   const handleDelete = async (productId: string) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/cart", {
+      const res = await axios.post(`${process.env.BASE_URL}/api/cart`, {
         userId,
         productId,
         quantity: 0,
@@ -40,7 +40,7 @@ export default function Cart() {
 
   const handleGetProducts = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/products/ids", {
+      const res = await axios.post(`${process.env.BASE_URL}/api/products/ids`, {
         ids: cart.map((item: any) => item.productId),
       });
       const data = await res.data;

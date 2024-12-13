@@ -1,7 +1,7 @@
 import axios from "axios";
 export const handleSession = async (token: string) => {
   try {
-    const res: any = await axios.post("http://localhost:5000/api/signin", {
+    const res: any = await axios.post(`${process.env.BASE_URL}/api/signin`, {
       token,
     });
     const data = await res.data;

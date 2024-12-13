@@ -6,7 +6,7 @@ export const addToCart = async (
   quantity: number
 ) => {
   try {
-    const res = await axios.post("http://localhost:5000/api/cart", {
+    const res = await axios.post(`${process.env.BASE_URL}/api/cart`, {
       userId,
       productId,
       quantity,

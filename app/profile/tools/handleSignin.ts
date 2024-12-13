@@ -19,7 +19,7 @@ export const handleSignin = async (email: string, password: string) => {
   }
 
   try {
-    const res = await axios.post("http://localhost:5000/api/signin", {
+    const res = await axios.post(`${process.env.BASE_URL}/api/signin`, {
       email: email as string,
       password: password as string,
     });
