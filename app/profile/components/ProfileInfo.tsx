@@ -2,6 +2,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
 import { setIsLoggedIn } from "@/store/ui";
+import { clearUser } from "@/store/user";
+import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 export const ProfileInfo = () => {
   const dispatch = useDispatch();
@@ -39,7 +41,10 @@ export const ProfileInfo = () => {
             </button>
             <button
               className="border-b border-[#d1d1d1] px-4 py-2 text-start"
-              onClick={() => dispatch(setIsLoggedIn(false))}
+              onClick={() => {
+                dispatch(clearUser());
+                Cookies.remove("session");
+              }}
             >
               خروج
             </button>

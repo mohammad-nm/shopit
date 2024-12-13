@@ -29,11 +29,14 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       return action.payload;
     },
+    setCart: (state, action) => {
+      state.cart = action.payload;
+    },
     clearUser: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, setCart } = userSlice.actions;
 export default userSlice.reducer;

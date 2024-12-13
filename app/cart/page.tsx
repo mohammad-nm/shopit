@@ -1,8 +1,34 @@
+"use client";
+
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Wishlist() {
+  const cart = useSelector((state: any) => state.user.cart);
+  const quantities = cart.map((item: any) => item.quantity);
+  const productsIds = cart.map((item: any) => item.productId);
+  const [products, setProducts] = useState([]);
+
+  const handleGetProducts = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/api/products/ids", {
+        ids: productsIds,
+      });
+      const data = await res.data;
+      setProducts(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    handleGetProducts();
+  }, [cart, productsIds, quantities]);
   return (
     <div className="bg-[#fff] ">
       <Navbar />
@@ -21,18 +47,32 @@ export default function Wishlist() {
               <div>جمع کل</div>
             </div>
           </div>
-          <div className="w-full flex p-4 gap-4">
-            <div className="w-1/2 flex gap-4">
-              <div>photo</div>
-              <div>name</div>
+          {products.map((item: any) => (
+            <div
+              className="w-full flex p-4 gap-4 border-b-2 border-gray-300"
+              key={item._id}
+            >
+              <div className="w-1/2 flex gap-4">
+                <div>image</div>
+                <div>{item.title}</div>
+              </div>
+              <div className="w-1/2 flex justify-between">
+                <div>{item.price}</div>
+                <div>
+                  {cart.find((c: any) => c.productId === item._id).quantity}
+                </div>
+                <div>
+                  {parseFloat(
+                    (
+                      item.price *
+                      cart.find((c: any) => c.productId === item._id).quantity
+                    ).toFixed(2)
+                  )}
+                </div>
+              </div>
+              <button>X</button>
             </div>
-            <div className="w-1/2 flex justify-between">
-              <div>price</div>
-              <div>count</div>
-              <div>total</div>
-            </div>
-            <button>X</button>
-          </div>
+          ))}
         </div>
         <div className="flex justify-between w-full gap-4 mb-10">
           <button className="bg-[#fcb800] text-black px-4 py-2 hover:bg-[#e9e6ed] transition-all duration-300 font-bold">
