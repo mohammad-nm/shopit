@@ -5,8 +5,9 @@ export const addToCart = async (
   productId: string,
   quantity: number
 ) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   try {
-    const res = await axios.post(`${process.env.BASE_URL}/api/cart`, {
+    const res = await axios.post(`${baseUrl}/api/cart`, {
       userId,
       productId,
       quantity,

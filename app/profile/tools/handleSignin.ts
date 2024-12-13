@@ -17,9 +17,9 @@ export const handleSignin = async (email: string, password: string) => {
   if (!validator.isEmail(email)) {
     return { error: "آدرس ایمیل معتبر نیست" };
   }
-
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   try {
-    const res = await axios.post(`${process.env.BASE_URL}/api/signin`, {
+    const res = await axios.post(`${baseUrl}/api/signin`, {
       email: email as string,
       password: password as string,
     });

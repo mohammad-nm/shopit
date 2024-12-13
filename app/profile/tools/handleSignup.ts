@@ -21,8 +21,9 @@ export const handleSignup = async (email: string, password: string) => {
       error: "رمز عبور باید حداقل 6 کاراکتر باشد و شامل حرف کوچک و عدد باشد",
     };
   }
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   try {
-    const res = await axios.post(`${process.env.BASE_URL}/api/signup`, {
+    const res = await axios.post(`${baseUrl}/api/signup`, {
       email,
       password,
     });

@@ -1,7 +1,10 @@
 import axios from "axios";
+
 export const handleSession = async (token: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  console.log(baseUrl);
   try {
-    const res: any = await axios.post(`${process.env.BASE_URL}/api/signin`, {
+    const res: any = await axios.post(`${baseUrl}/api/signin`, {
       token,
     });
     const data = await res.data;

@@ -21,11 +21,14 @@ export default function Cart() {
 
   const handleDelete = async (productId: string) => {
     try {
-      const res = await axios.post(`${process.env.BASE_URL}/api/cart`, {
-        userId,
-        productId,
-        quantity: 0,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/cart`,
+        {
+          userId,
+          productId,
+          quantity: 0,
+        }
+      );
       const data = await res.data;
       if (res.status === 200) {
         dispatch(setCart(data.cart));
@@ -40,9 +43,12 @@ export default function Cart() {
 
   const handleGetProducts = async () => {
     try {
-      const res = await axios.post(`${process.env.BASE_URL}/api/products/ids`, {
-        ids: cart.map((item: any) => item.productId),
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/ids`,
+        {
+          ids: cart.map((item: any) => item.productId),
+        }
+      );
       const data = await res.data;
       setProducts(data);
     } catch (error) {

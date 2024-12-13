@@ -24,12 +24,15 @@ export default function ProductsList() {
   const getProducts = async () => {
     dispatch(setIsLoading(true));
     try {
-      const res = await axios.post(`${process.env.BASE_URL}/api/products`, {
-        category: category,
-        page: page,
-        limit: limit,
-        search: search,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
+        {
+          category: category,
+          page: page,
+          limit: limit,
+          search: search,
+        }
+      );
       const data = await res.data;
       if (res.status === 200) {
         dispatch(setProducts(data.products));
