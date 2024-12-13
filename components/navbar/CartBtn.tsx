@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 export default function CartBtn() {
-  const cart = useSelector((state: any) => state.user.cart);
+  const cart = useSelector((state: any) => state.user.cart) || [];
 
   return (
     <Link href="/cart" className="relative">
