@@ -40,11 +40,10 @@ export default function MyAccount() {
     }
     dispatch(setUser(res));
     Cookies.set("session", res.token);
-    console.log(res);
   };
   useEffect(() => {
     (async () => {
-      if (session) {
+      if (session && session !== "undefined") {
         await handleSessionCheck(session);
       }
     })();

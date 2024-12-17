@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { handleSignup } from "../tools/handleSignup";
 import { setUser } from "@/store/user";
 import Cookies from "js-cookie";
+import EyeIcon from "@/svg/eye.svg";
+import Image from "next/image";
 export const SignUpForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -52,7 +54,7 @@ export const SignUpForm = () => {
             className="mr-[-30px]"
             onClick={() => setShowPassword(!showPassword)}
           >
-            icon
+            <Image src={EyeIcon} alt="eye" />
           </div>
         </div>
         <div className="mb-4 justify-center items-center flex text-center font-semibold text-red-500 ">

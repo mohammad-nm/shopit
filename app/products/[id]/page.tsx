@@ -12,17 +12,21 @@ import MinusSvg from "@/svg/minus.svg";
 import PlusSvg from "@/svg/plus.svg";
 import { addToCart } from "./tools/addToCart";
 import { setCart } from "@/store/user";
+import { setError } from "@/store/ui";
 export default function Product() {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [like, setLike] = useState(false);
   const userId = useSelector((state: any) => state.user._id);
+
   const router = useRouter();
   const params = useParams();
   if (!params) {
     router.push("/products");
     return;
   }
+  const cart = useSelector((state: any) => state.user.cart);
+  const error = useSelector((state: any) => state.ui.error);
   const productId = params.id;
   const product = useSelector((state: any) =>
     state.productsList.products.find((p: any) => p.id === productId)
@@ -32,6 +36,8 @@ export default function Product() {
   const [description, setDescription] = useState("description");
   const handleCart = async () => {
     if (!userId) {
+      dispatch(setCart([...cart, { productId, quantity }]));
+      dispatch(setError("لطفا وارد حساب کاربری خود شوید"));
       return;
     }
     if (!productId) {
@@ -39,12 +45,10 @@ export default function Product() {
     }
     const res = await addToCart(userId, product._id, quantity);
     if (res.error) {
-      console.log(res.error);
+      dispatch(setError(res.error));
     }
     if (res.success) {
-      console.log(res.success);
       dispatch(setCart(res.cart));
-      console.log(res.cart);
     }
   };
   return (
@@ -130,6 +134,7 @@ export default function Product() {
                 </button>
               </div>
             </div>
+            {error && <div className="text-red-500">{error}</div>}
             <div className="flex flex-col gap-1 text-sm">
               <div>شناسه : {product.id}</div>
               <div>دسته بندی ها: {product.categories.join(", ")}</div>

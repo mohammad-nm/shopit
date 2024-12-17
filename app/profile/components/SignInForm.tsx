@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import EyeIcon from "@/svg/eye.svg";
+import Image from "next/image";
 
 export const SignInForm = () => {
   const [email, setEmail] = useState<string>("");
@@ -53,7 +55,7 @@ export const SignInForm = () => {
           className="mr-[-30px]"
           onClick={() => setShowPassword(!showPassword)}
         >
-          show
+          <Image src={EyeIcon} alt="eye" />
         </div>
       </div>
       <div className="mb-4 justify-center items-center flex text-center font-semibold text-red-500 ">

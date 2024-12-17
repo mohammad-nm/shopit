@@ -2,7 +2,7 @@ import Image from "next/image";
 import rocket from "@/svg/rocket.svg";
 export default function Headlines() {
   return (
-    <div className="flex items-center gap-4 w-full justify-between px-8 py-4 my-4 ">
+    <div className="flex items-center gap-4 w-full justify-between px-8 py-8 ">
       <div className="flex items-center gap-4 justify-center text-right">
         <div>
           <Image src={rocket} alt="rocket" width={30} height={30} />

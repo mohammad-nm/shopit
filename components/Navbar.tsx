@@ -3,6 +3,7 @@ import ProfileBtn from "./navbar/ProfileBtn";
 import SandwichMenu from "./navbar/SandwichMenu";
 import Search from "./navbar/Search";
 import WishlistBtn from "./navbar/WishlistBtn";
+import Logo from "./navbar/Logo";
 
 export default function Navbar() {
   return (
@@ -22,7 +23,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex w-fit justify-self-end items-center">
-          <div className="text-2xl font-bold mr-4">logo</div>
+          <Logo />
         </div>
       </div>
     </div>

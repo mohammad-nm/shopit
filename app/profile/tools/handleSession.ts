@@ -7,9 +7,9 @@ export const handleSession = async (token: string) => {
     const res: any = await axios.post(`${baseUrl}/api/signin`, {
       token,
     });
-    const data = await res.data;
 
     if (res.status === 200) {
+      const data = await res.data;
       return { ...data.user, token: data.token };
     }
 
