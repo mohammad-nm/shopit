@@ -21,6 +21,12 @@ export default function Cart() {
 
   const handleDelete = async (productId: string) => {
     try {
+      if (!userId) {
+        dispatch(
+          setCart(cart.filter((item: any) => item.productId !== productId))
+        );
+        return;
+      }
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/cart`,
         {
@@ -32,6 +38,7 @@ export default function Cart() {
       const data = await res.data;
       if (res.status === 200) {
         dispatch(setCart(data.cart));
+
         setError("");
       } else {
         setError("محصول با موفقیت حذف نشد");
@@ -43,10 +50,13 @@ export default function Cart() {
 
   const handleGetProducts = async () => {
     try {
+      console.log("cart", cart);
+      const ids = cart.map((item: any) => item.productId);
+      console.log("ids", ids);
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/ids`,
         {
-          ids: cart.map((item: any) => item.productId),
+          ids,
         }
       );
       const data = await res.data;
@@ -169,28 +179,32 @@ export default function Cart() {
                   <div className="text-gray-500 border-b-2 pb-3 mb-2 flex justify-between">
                     جمع کل
                     <span className="text-red-400 font-bold text-2xl ml-10">
-                      {products.reduce(
-                        (acc: number, item: any) =>
-                          acc +
-                          item.price *
-                            cart.find((c: any) => c.productId === item._id)
-                              ?.quantity,
-                        0
-                      ) || ""}
+                      {Math.floor(
+                        products.reduce(
+                          (acc: number, item: any) =>
+                            acc +
+                            item.price *
+                              cart.find((c: any) => c.productId === item._id)
+                                ?.quantity,
+                          0
+                        ) || 0
+                      ).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-2xl">
                     {" "}
                     مبلغ نهایی
                     <span className="text-red-400 font-bold text-2xl ml-10">
-                      {products.reduce(
-                        (acc: number, item: any) =>
-                          acc +
-                          item.price *
-                            cart.find((c: any) => c.productId === item._id)
-                              ?.quantity,
-                        0
-                      ) || ""}
+                      {Math.floor(
+                        products.reduce(
+                          (acc: number, item: any) =>
+                            acc +
+                            item.price *
+                              cart.find((c: any) => c.productId === item._id)
+                                ?.quantity,
+                          0
+                        ) || 0
+                      ).toFixed(2)}
                     </span>
                   </div>
                 </div>

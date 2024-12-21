@@ -25,7 +25,8 @@ export default function Product() {
     router.push("/products");
     return;
   }
-  const cart = useSelector((state: any) => state.user.cart);
+  const user = useSelector((state: any) => state.user);
+  const cart = user.cart;
   const error = useSelector((state: any) => state.ui.error);
   const productId = params.id;
   const product = useSelector((state: any) =>
@@ -36,8 +37,9 @@ export default function Product() {
   const [description, setDescription] = useState("description");
   const handleCart = async () => {
     if (!userId) {
-      dispatch(setCart([...cart, { productId, quantity }]));
-      dispatch(setError("لطفا وارد حساب کاربری خود شوید"));
+      dispatch(
+        setCart([...(cart ? cart : []), { productId: product._id, quantity }])
+      );
       return;
     }
     if (!productId) {
@@ -48,7 +50,9 @@ export default function Product() {
       dispatch(setError(res.error));
     }
     if (res.success) {
+      console.log("cart", res.cart);
       dispatch(setCart(res.cart));
+      console.log("cart", cart);
     }
   };
   return (

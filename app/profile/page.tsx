@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { handleSession } from "./tools/handleSession";
 import { clearUser } from "@/store/user";
 import { setUser } from "@/store/user";
+import { setCart } from "@/store/user";
 
 interface User {
   moreInfo: {
@@ -39,6 +40,7 @@ export default function MyAccount() {
       return;
     }
     dispatch(setUser(res));
+
     Cookies.set("session", res.token);
   };
   useEffect(() => {
@@ -47,9 +49,9 @@ export default function MyAccount() {
         await handleSessionCheck(session);
       }
     })();
-  }, []);
+  }, [session]);
   const login = useSelector((state: any) => state.ui.loginSignup);
-  const user: User = useSelector((state: any) => state.user);
+  const user = useSelector((state: any) => state.user);
 
   if (!user.token)
     return (

@@ -1,6 +1,6 @@
 "use client";
 import { setError } from "@/store/ui";
-import { setUser } from "@/store/user";
+import { setCart, setUser } from "@/store/user";
 import { handleSignin } from "../tools/handleSignin";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import EyeIcon from "@/svg/eye.svg";
 import Image from "next/image";
+import { handleUpdateCart } from "../tools/handleUpdateCart";
 
 export const SignInForm = () => {
   const [email, setEmail] = useState<string>("");
@@ -16,18 +17,41 @@ export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const error = useSelector((state: any) => state.ui.error);
+  const cart = useSelector((state: any) => state.user.cart);
   const handleLogin = async () => {
     setIsLoading(true);
+    const oldCart = cart;
     const res: any = await handleSignin(email, password);
     if (res.error) {
       dispatch(setError(res.error));
       setIsLoading(false);
       return;
     }
-    console.log(res);
     Cookies.set("session", res.token, { expires: 24 });
     dispatch(setUser(res));
+    const newCart: {
+      _id: string;
+      productId: string;
+      quantity: number;
+    }[] = [
+      ...oldCart.map((item: any) => {
+        return {
+          _id: res.user._id,
+          productId: item.productId,
+          quantity: item.quantity,
+        };
+      }),
+      ...(res.user.cart ? res.user.cart : []),
+    ];
+    console.log("newCart", newCart);
+    if (oldCart.length > 0) {
+      const res = await handleUpdateCart(newCart);
+      console.log("newCart", res);
+      dispatch(setCart(res.cart));
+    }
+    dispatch(setCart(res.user.cart));
     setIsLoading(false);
+    // router.push("/");
   };
   return (
     <div>
