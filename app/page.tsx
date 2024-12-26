@@ -4,6 +4,7 @@ import Headlines from "@/components/footer/Headlines";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
 import HeadSlider from "./components/HeadSlider";
+
 export default function Home() {
   const products = [
     {
