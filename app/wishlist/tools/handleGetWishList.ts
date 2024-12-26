@@ -1,4 +1,5 @@
 import axios from "axios";
+import Wishlist from "../page";
 export const handleGetWishList = async (token: string) => {
   //fix it later to get request
   try {
@@ -11,7 +12,8 @@ export const handleGetWishList = async (token: string) => {
     if (res.status !== 200) {
       return res.data.message;
     }
-    return res.data.wishlist;
+    const products = res.data;
+    return products;
   } catch (error) {
     return error;
   }

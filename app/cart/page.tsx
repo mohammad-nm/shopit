@@ -50,9 +50,7 @@ export default function Cart() {
 
   const handleGetProducts = async () => {
     try {
-      console.log("cart", cart);
       const ids = cart.map((item: any) => item.productId);
-      console.log("ids", ids);
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/ids`,
         {

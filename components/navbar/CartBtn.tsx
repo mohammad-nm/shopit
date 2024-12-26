@@ -10,7 +10,7 @@ export default function CartBtn() {
   return (
     <Link href="/cart" className="relative">
       <Image src={CartSvg} alt="cart" width={40} height={40} />
-      <div className=" absolute bottom-[-5px] left-[-2px] bg-black text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+      <div className="absolute bottom-[-5px] left-[-2px] bg-black text-white rounded-full w-4 h-4 flex items-center justify-center text-xs p-[7px]">
         {cart.length}
       </div>
     </Link>
