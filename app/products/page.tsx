@@ -1,8 +1,9 @@
 "use client";
+import React from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
-import ProductsList from "./components/ProductsList";
+const ProductsList = React.lazy(() => import("./components/ProductsList"));
 import { useDispatch, useSelector } from "react-redux";
 import Categories from "./components/Categories";
 import Filters from "./components/Filters";
@@ -10,7 +11,8 @@ import { setPage } from "@/store/productsList";
 import LineShow from "@/svg/lineShow.svg";
 import BoxShow from "@/svg/boxShow.svg";
 import Image from "next/image";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import SkeletonLoader from "./components/SkeletonLoader";
 export default function Products() {
   const [show, setShow] = useState("list");
   const [sorting, setSorting] = useState("close");
@@ -21,6 +23,7 @@ export default function Products() {
   const search = useSelector((state: any) => state.productsList.search);
   const totalPages = useSelector((state: any) => state.productsList.totalPages);
   const dispatch = useDispatch();
+
   return (
     <div className="bg-[#fff] text-black">
       <Navbar />
@@ -66,7 +69,9 @@ export default function Products() {
             </div>
             <div>{totalProducts} محصول یافت شد</div>
           </div>
-          <ProductsList />
+          <Suspense fallback={<SkeletonLoader />}>
+            <ProductsList />
+          </Suspense>
           <div className="flex  items-end mx-auto h-full ">
             <div className="flex gap-4 items-center mb-20">
               <button
