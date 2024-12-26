@@ -43,11 +43,14 @@ export const SignInForm = () => {
       }),
       ...(res.user.cart ? res.user.cart : []),
     ];
+    console.log("oldCart", oldCart);
     console.log("newCart", newCart);
     if (oldCart.length > 0) {
       const res = await handleUpdateCart(newCart);
       console.log("newCart", res);
       dispatch(setCart(res.cart));
+      setIsLoading(false);
+      return;
     }
     dispatch(setCart(res.user.cart));
     setIsLoading(false);

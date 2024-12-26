@@ -13,6 +13,7 @@ import { handleSession } from "./tools/handleSession";
 import { clearUser } from "@/store/user";
 import { setUser } from "@/store/user";
 import { setCart } from "@/store/user";
+import { setLikes } from "@/store/user";
 
 interface User {
   moreInfo: {
@@ -30,9 +31,10 @@ interface User {
   __v: number;
   token: string;
 }
-export default function MyAccount() {
+export default function Profile() {
   const dispatch = useDispatch();
   const session = Cookies.get("session");
+
   const handleSessionCheck = async (token: string) => {
     const res: any = await handleSession(token);
     if (res.error) {
@@ -40,7 +42,6 @@ export default function MyAccount() {
       return;
     }
     dispatch(setUser(res));
-
     Cookies.set("session", res.token);
   };
   useEffect(() => {

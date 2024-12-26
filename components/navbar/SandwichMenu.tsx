@@ -2,9 +2,63 @@
 import Image from "next/image";
 import SandwichSvg from "@/svg/sandwich.svg";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCategory, setPage } from "@/store/productsList";
+
+const categories = [
+  {
+    mainCategory: "Electronics",
+    subcategories: [
+      "Smartphones",
+      "Laptops",
+      "Headphones",
+      "E-readers",
+      "Accessories",
+      "Gaming",
+      "Cameras",
+      "Drones",
+      "Smartwatches",
+      "Action Cameras",
+      "Keyboards",
+    ],
+  },
+  {
+    mainCategory: "Fashion",
+    subcategories: ["Footwear", "Clothes"],
+  },
+  {
+    mainCategory: "Fitness",
+    subcategories: ["Accessories", "Home Equipment"],
+  },
+  {
+    mainCategory: "Furniture",
+    subcategories: ["Office Chairs", "Home Furniture"],
+  },
+  {
+    mainCategory: "Appliances",
+    subcategories: ["Kitchen", "Home"],
+  },
+  {
+    mainCategory: "Outdoor",
+    subcategories: ["Camping Gear", "Sports Equipment"],
+  },
+  {
+    mainCategory: "Toys",
+    subcategories: ["Educational", "Outdoor Play"],
+  },
+  {
+    mainCategory: "Automotive",
+    subcategories: ["Car Accessories", "Maintenance"],
+  },
+  {
+    mainCategory: "Books",
+    subcategories: ["E-books", "Printed Books"],
+  },
+];
 
 export default function SandwichMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
   return (
     <div className="relative">
       <button onClick={() => setIsOpen(!isOpen)}>
@@ -13,12 +67,18 @@ export default function SandwichMenu() {
       {isOpen && (
         <div className="absolute top-14 right-0  bg-white p-4 rounded-md shadow-md text-black">
           <div className="flex flex-col gap-4 text-right p-2 w-40">
-            <div>لوازم الکتریکی</div>
-            <div>مد و پوشاک</div>
-            <div>خانه و آشپزخانه</div>
-            <div>زیبایی و سلامت</div>
-            <div>ساعت و جواهرات</div>
-            <div>کامپیوتر و تکنولوژی</div>
+            {categories.map((category) => (
+              <button
+                className="hover:bg-gray-100 p-2 rounded-md"
+                onClick={() => {
+                  setIsOpen(false);
+                  dispatch(setCategory(category.mainCategory));
+                  dispatch(setPage(1));
+                }}
+              >
+                {category.mainCategory}
+              </button>
+            ))}
           </div>
         </div>
       )}

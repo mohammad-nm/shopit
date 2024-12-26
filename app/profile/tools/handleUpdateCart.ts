@@ -12,5 +12,6 @@ export const handleUpdateCart = async (cart: any) => {
   if (res.status !== 200) {
     return { error: "Failed to update cart" };
   }
+  console.log("res", res.data.cart);
   return { success: "Cart updated", cart: res.data.cart };
 };

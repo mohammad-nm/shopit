@@ -11,9 +11,12 @@ import CompareSvg from "@/svg/compare.svg";
 import MinusSvg from "@/svg/minus.svg";
 import PlusSvg from "@/svg/plus.svg";
 import { addToCart } from "./tools/addToCart";
-import { setCart } from "@/store/user";
+import { setCart, setLikes } from "@/store/user";
 import { setError } from "@/store/ui";
+import { addToWishlist } from "./tools/addToWishlist";
+import { addToWishlist as addToWishlistSlice } from "@/store/user";
 export default function Product() {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [like, setLike] = useState(false);
@@ -50,10 +53,27 @@ export default function Product() {
       dispatch(setError(res.error));
     }
     if (res.success) {
-      console.log("cart", res.cart);
       dispatch(setCart(res.cart));
-      console.log("cart", cart);
     }
+  };
+  const handleAddToWishlist = async () => {
+    setError("");
+    setLoading(true);
+    if (!userId) {
+      const productId = product._id;
+      dispatch(addToWishlistSlice(productId));
+      return;
+    }
+
+    const res = await addToWishlist(product._id);
+    if (res.error) {
+      setError(res.error);
+    }
+    if (res.wishlist) {
+      console.log("res", res.wishlist.products);
+      dispatch(setLikes(res.wishlist.products));
+    }
+    setLoading(false);
   };
   return (
     <div className="bg-[#fff] text-black">
@@ -123,7 +143,10 @@ export default function Product() {
                 </button>
               </div>
               <div className="gap-8 flex items-center">
-                <button className="flex flex-col items-center">
+                <button
+                  className="flex flex-col items-center"
+                  onClick={handleAddToWishlist}
+                >
                   <Image src={WishlistSvg} alt="heart" width={20} height={20} />
                   <div className="text-xs">Like</div>
                 </button>

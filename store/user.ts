@@ -7,7 +7,7 @@ interface UserState {
   token: string | null;
   cart: [];
   purchases: [];
-  likes: [];
+  likes: { productId: string }[];
   moreInfo: {};
 }
 
@@ -35,11 +35,19 @@ const userSlice = createSlice({
     setLikes: (state, action) => {
       state.likes = action.payload;
     },
+    addToWishlist: (state, action) => {
+      const likes: { productId: string }[] = [
+        ...state.likes.filter((item) => item.productId !== action.payload),
+        { productId: action.payload },
+      ];
+      state.likes = likes;
+    },
     clearUser: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setUser, clearUser, setCart, setLikes } = userSlice.actions;
+export const { setUser, clearUser, setCart, setLikes, addToWishlist } =
+  userSlice.actions;
 export default userSlice.reducer;
