@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Links() {
   return (
-    <div className="flex justify-between px-8 py-4 my-4">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-20 px-8 py-4 my-4">
       <div className="flex flex-col gap-2">
         <div className="font-bold text-xl">لینک های سریع</div>
         <div className="flex flex-col gap-2">
@@ -37,9 +37,15 @@ export default function Links() {
       <div className="flex flex-col gap-2">
         {" "}
         <div className="font-bold text-xl">خبرنامه</div>
-        <div>
-          <button>اشتراک</button>
-          <input type="text" placeholder="ایمیل" />
+        <div className="flex flex-col gap-2">
+          <input
+            type="text"
+            placeholder="ایمیل"
+            className="w-full p-2 rounded-md border-2 border-gray-300"
+          />
+          <button className="w-full bg-[#fcb800] text-white p-2 rounded-md">
+            اشتراک
+          </button>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export default function WishlistBtn() {
   const likes = useSelector((state: any) => state.user.likes);
   return (
     <Link href="/wishlist" className="relative">
-      <Image src={WishlistSvg} alt="wishlist" width={40} height={40} />
+      <Image src={WishlistSvg} alt="wishlist" width={30} height={30} />
     </Link>
   );
 }

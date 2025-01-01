@@ -40,17 +40,19 @@ export default function HeadSlider() {
     "https://mimwp.com/theme/martfury/demo8/wp-content/uploads/revslider/home_market_v4/s6-1.jpg",
   ];
   return (
-    <div className="swiper mt-20 h-[300px] w-full">
-      <div className="swiper-wrapper flex justify-center text-black">
-        {slides.map((slide, index) => (
-          <div key={index} className="swiper-slide">
-            <img src={slide} alt="" className="object-fill w-full h-full " />
-          </div>
-        ))}
+    <div className="w-full">
+      <div className="swiper mt-20 h-[300px] w-full">
+        <div className="swiper-wrapper flex justify-center text-black">
+          {slides.map((slide, index) => (
+            <div key={index} className="swiper-slide">
+              <img src={slide} alt="" className="object-fill w-full h-full " />
+            </div>
+          ))}
+        </div>
+        <div className="swiper-pagination"></div>
+        <div className="swiper-button-prev"></div>
+        <div className="swiper-button-next"></div>
       </div>
-      <div className="swiper-pagination"></div>
-      <div className="swiper-button-prev"></div>
-      <div className="swiper-button-next"></div>
     </div>
   );
 }

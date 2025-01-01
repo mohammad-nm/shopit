@@ -13,7 +13,7 @@ export default function Search() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   return (
-    <div className="flex items-center h-12 w-full">
+    <div className="flex items-center h-12 w-full justify-center">
       <button
         className="bg-black text-white px-4 py-1 rounded-l-md h-full"
         onClick={() => {
@@ -31,7 +31,7 @@ export default function Search() {
       <input
         type="search"
         placeholder="جستجو..."
-        className="border-none outline-none p-2 h-full text-black placeholder:text-gray-500 w-full"
+        className="border-none outline-none p-2 h-full text-black placeholder:text-gray-500 w-full rounded-r-md xl:rounded-none"
         dir="rtl"
         value={searchValue}
         onChange={(e) => {
@@ -39,7 +39,7 @@ export default function Search() {
         }}
       />
       <select
-        className="bg-black text-white h-full  p-2 rounded-r-md w-20"
+        className="hidden xl:block bg-black text-white h-full  p-2 rounded-r-md w-20"
         dir="rtl"
       >
         <option value="default" className="">

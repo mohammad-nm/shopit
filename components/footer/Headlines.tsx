@@ -1,46 +1,28 @@
-import Image from "next/image";
+import Headline from "./Headline";
 import rocket from "@/svg/rocket.svg";
 export default function Headlines() {
   return (
-    <div className="flex items-center gap-4 w-full justify-between px-8 py-8 ">
-      <div className="flex items-center gap-4 justify-center text-right">
-        <div>
-          <Image src={rocket} alt="rocket" width={30} height={30} />
-        </div>
-        <div>
-          <div>ارسال رایگان</div>
-          <div className="text-sm text-gray-500">
-            خریدهای بالای 90 هزارتومان
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center gap-4 justify-center text-right">
-        <div>
-          <Image src={rocket} alt="rocket" width={30} height={30} />
-        </div>
-        <div>
-          <div>ضمانت بازگشت</div>
-          <div className="text-sm text-gray-500">90 روز ضمانت بازگشت</div>
-        </div>
-      </div>
-      <div className="flex items-center gap-4 justify-center text-right">
-        <div>
-          <Image src={rocket} alt="rocket" width={30} height={30} />
-        </div>
-        <div>
-          <div>پرداخت آسان</div>
-          <div className="text-sm text-gray-500">پرداخت آسان خریدها</div>
-        </div>
-      </div>
-      <div className="flex items-center gap-4 justify-center text-right">
-        <div>
-          <Image src={rocket} alt="rocket" width={30} height={30} />
-        </div>
-        <div>
-          <div>پشتیبانی همه روزه</div>
-          <div className="text-sm text-gray-500">پشتیبانی 7 روز هفته</div>
-        </div>
-      </div>
+    <div className=" gap-4 w-full justify-between px-8 py-8 grid grid-cols-2 sm:flex-row sm:grid-cols-4">
+      <Headline
+        title="ضمانت بازگشت"
+        description="90 روز ضمانت بازگشت"
+        icon={rocket}
+      />
+      <Headline
+        title="پرداخت آسان"
+        description="پرداخت آسان خریدها"
+        icon={rocket}
+      />
+      <Headline
+        title="ارسال رایگان"
+        description="خریدهای بالای 90 هزارتومان"
+        icon={rocket}
+      />
+      <Headline
+        title="پشتیبانی همه روزه"
+        description="پشتیبانی 7 روز هفته"
+        icon={rocket}
+      />
     </div>
   );
 }

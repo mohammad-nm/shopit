@@ -20,7 +20,7 @@ export default function Wishlist() {
   const router = useRouter();
   const [products, setProducts] = useState<{}[]>([]);
   const getWishlist = async () => {
-    if (token) {
+    if (token && typeof token === "string") {
       setLoading(true);
       const products: string | { pictureUrls: string[] }[] =
         await handleGetWishList(token);
