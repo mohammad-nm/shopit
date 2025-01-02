@@ -12,25 +12,6 @@ import { useEffect } from "react";
 import { handleSession } from "./tools/handleSession";
 import { clearUser } from "@/store/user";
 import { setUser } from "@/store/user";
-import { setCart } from "@/store/user";
-import { setLikes } from "@/store/user";
-
-interface User {
-  moreInfo: {
-    name: string;
-    lastName: string;
-    address: string;
-    showName: string;
-  };
-  _id: string;
-  email: string;
-  password: string;
-  likes: [];
-  cart: [];
-  purchases: [];
-  __v: number;
-  token: string;
-}
 export default function Profile() {
   const dispatch = useDispatch();
   const session = Cookies.get("session");

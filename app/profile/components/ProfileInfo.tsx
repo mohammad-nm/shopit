@@ -12,18 +12,22 @@ export const ProfileInfo = () => {
       <Navbar />
       <Route />
       <div
-        className=" flex max-w-[850px] mx-auto p-10 text-black mb-20"
+        className=" flex w-full sm:w-4/5 mx-auto p-10 text-black mb-20 flex-col items-center "
         dir="rtl"
       >
-        <div className="w-1/4 ">
+        <div className="w-full">
           <div className="flex gap-4 mb-10">
-            <div>photo</div>
+            <div className="bg-gray-400 w-fit rounded-full p-2 items-center flex">
+              photo
+            </div>
             <div className="flex flex-col gap-2">
               <div className="font-bold text-lg">سلام!!!</div>
               <div className="text-sm">{user.email}</div>
             </div>
           </div>
-          <div className="flex flex-col gap-y-2 font-bold text-sm bg-[#f6f6f6] border border-[#d1d1d1] rounded-md w-full">
+        </div>
+        <div className="w-full p-20 flex flex-col md:flex-row gap-y-8 font-semibold text-gray-400 gap-20 ">
+          <div className="flex flex-col gap-y-2 font-bold text-sm bg-[#f6f6f6] border border-[#d1d1d1] rounded-md w-full sm:max-w-[300px]">
             <button className="border-b border-[#d1d1d1] bg-[#fcb800] px-4 py-2 text-start">
               پیشخوان
             </button>
@@ -49,15 +53,15 @@ export const ProfileInfo = () => {
               خروج
             </button>
           </div>
-        </div>
-        <div className="w-3/4 p-20 flex flex-col gap-y-8 font-semibold text-gray-400">
           <div>
-            سلام {user.name} ({user.email} نیستید؟ خارج شوید)
-          </div>
-          <div>
-            از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را
-            مشاهده، آدرس‌های حمل و نقل و صورتحساب‌تان را مدیریت و جزییات حساب
-            کاربری و کلمه عبور خود را ویرایش کنید.
+            <div>
+              سلام {user.name} ({user.email} نیستید؟ خارج شوید)
+            </div>
+            <div>
+              از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را
+              مشاهده، آدرس‌های حمل و نقل و صورتحساب‌تان را مدیریت و جزییات حساب
+              کاربری و کلمه عبور خود را ویرایش کنید.
+            </div>
           </div>
         </div>
       </div>
