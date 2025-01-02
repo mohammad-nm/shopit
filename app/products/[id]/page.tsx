@@ -2,79 +2,60 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Route from "@/components/Route";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import WishlistSvg from "@/svg/wishlist.svg";
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import CompareSvg from "@/svg/compare.svg";
 import MinusSvg from "@/svg/minus.svg";
 import PlusSvg from "@/svg/plus.svg";
-import { addToCart } from "./tools/addToCart";
-import { setCart, setLikes } from "@/store/user";
-import { setError } from "@/store/ui";
-import { addToWishlist } from "./tools/addToWishlist";
-import { addToWishlist as addToWishlistSlice } from "@/store/user";
-export default function Product() {
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
-  const [like, setLike] = useState(false);
-  const userId = useSelector((state: any) => state.user._id);
+import getProduct from "./tools/getProduct";
+import AddToWishlistBtn from "./components/AddToWishlistBtn";
+import cookies from "js-cookie";
+import AddToCartBtn from "./components/AddToCartBtn";
 
+export default function Product() {
   const router = useRouter();
   const params = useParams();
   if (!params) {
     router.push("/products");
     return;
   }
-  const user = useSelector((state: any) => state.user);
-  const cart = user.cart;
-  const error = useSelector((state: any) => state.ui.error);
+  const token = cookies.get("session");
   const productId = params.id;
-  const product = useSelector((state: any) =>
-    state.productsList.products.find((p: any) => p.id === productId)
-  );
+  if (!productId) {
+    router.push("/products");
+    return;
+  }
 
-  // console.log(product);
+  const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState({
+    title: "",
+    pictureUrls: [],
+    options: [],
+    id: "",
+    categories: [],
+    tags: [],
+    available: false,
+    price: "",
+    description: "",
+    info: [],
+    comments: [],
+  });
   const [description, setDescription] = useState("description");
-  const handleCart = async () => {
-    if (!userId) {
-      dispatch(
-        setCart([...(cart ? cart : []), { productId: product._id, quantity }])
-      );
-      return;
-    }
-    if (!productId) {
-      return;
-    }
-    const res = await addToCart(userId, product._id, quantity);
-    if (res.error) {
-      dispatch(setError(res.error));
-    }
-    if (res.success) {
-      dispatch(setCart(res.cart));
-    }
-  };
-  const handleAddToWishlist = async () => {
-    setError("");
-    setLoading(true);
-    if (!userId) {
-      const productId = product._id;
-      dispatch(addToWishlistSlice(productId));
-      return;
-    }
+  const error = useSelector((state: any) => state.ui.error);
 
-    const res = await addToWishlist(product._id);
-    if (res.error) {
-      setError(res.error);
-    }
-    if (res.wishlist) {
-      console.log("res", res.wishlist.products);
-      dispatch(setLikes(res.wishlist.products));
-    }
-    setLoading(false);
-  };
+  useEffect(() => {
+    const get = async () => {
+      console.log(productId);
+      const product = await getProduct(productId as string);
+      console.log(product);
+      setProduct(product);
+    };
+    get();
+  }, []);
+
   return (
     <div className="bg-[#fff] text-black">
       <Navbar />
@@ -136,20 +117,15 @@ export default function Product() {
                   <Image src={PlusSvg} alt="plus" width={15} height={15} />
                 </button>
               </div>
-              <div onClick={handleCart}>
-                {" "}
-                <button className="bg-[#fcb800] hover:bg-[#fcb155] transition-all duration-300 text-black px-4 py-2 rounded-md ">
-                  افزودن به سبد خرید
-                </button>
-              </div>
+              <AddToCartBtn
+                productId={productId as string}
+                quantity={quantity as number}
+              />
               <div className="gap-8 flex items-center">
-                <button
-                  className="flex flex-col items-center"
-                  onClick={handleAddToWishlist}
-                >
-                  <Image src={WishlistSvg} alt="heart" width={20} height={20} />
-                  <div className="text-xs">Like</div>
-                </button>
+                <AddToWishlistBtn
+                  productId={productId as string}
+                  token={token}
+                />
                 <button className="flex flex-col items-center">
                   <Image
                     src={CompareSvg}

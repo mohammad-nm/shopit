@@ -112,7 +112,7 @@ export default function Cart() {
                       >
                         <div
                           className="w-1/2 flex gap-12 items-center cursor-pointer"
-                          onClick={() => router.push(`/products/${item.id}`)}
+                          onClick={() => router.push(`/products/${item._id}`)}
                         >
                           <div>
                             <img

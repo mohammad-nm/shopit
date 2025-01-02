@@ -4,17 +4,19 @@ import uiSlice from "./ui";
 import productsListSlice from "./productsList";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import wishlistSlice from "./wishlist";
 
 const rootReducer = combineReducers({
   user: userSlice,
   ui: uiSlice,
+  wishlist: wishlistSlice,
   productsList: productsListSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["productsList", "user"],
+  whitelist: ["productsList", "user", "wishlist"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

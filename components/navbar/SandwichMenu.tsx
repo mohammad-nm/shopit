@@ -4,6 +4,7 @@ import SandwichSvg from "@/svg/sandwich.svg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCategory, setPage } from "@/store/productsList";
+import Link from "next/link";
 
 const categories = [
   {
@@ -58,6 +59,7 @@ const categories = [
 
 export default function SandwichMenu() {
   const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   return (
     <div className="relative">
@@ -67,17 +69,19 @@ export default function SandwichMenu() {
       {isOpen && (
         <div className="absolute top-14 right-0  bg-white p-4 rounded-md shadow-md text-black">
           <div className="flex flex-col gap-4 text-right p-2 w-40">
-            {categories.map((category) => (
-              <button
+            {categories.map((category, index) => (
+              <Link
                 className="hover:bg-gray-100 p-2 rounded-md"
+                key={index}
                 onClick={() => {
                   setIsOpen(false);
                   dispatch(setCategory(category.mainCategory));
                   dispatch(setPage(1));
                 }}
+                href="/products"
               >
                 {category.mainCategory}
-              </button>
+              </Link>
             ))}
           </div>
         </div>

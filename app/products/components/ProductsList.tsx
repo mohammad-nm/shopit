@@ -59,7 +59,7 @@ export default function ProductsList() {
           className="w-1/4 hover:border border border-transparent hover:border-gray-400 p-2 cursor-pointer mt-6"
           key={product.id}
           onClick={() => {
-            router.push(`/products/${product.id}`);
+            router.push(`/products/${product._id}`);
           }}
         >
           <div className="w-full mb-4">
