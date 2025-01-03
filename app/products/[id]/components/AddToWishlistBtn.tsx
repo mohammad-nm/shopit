@@ -3,6 +3,8 @@ import WishlistSvg from "@/svg/wishlist.svg";
 import { addToWishlist as addHandler } from "../tools/addToWishlist";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist as addToWishlistSlice } from "@/store/wishlist";
+import { setError } from "@/store/ui";
+import { error } from "console";
 
 export default function AddToWishlistBtn({
   productId,
@@ -17,11 +19,21 @@ export default function AddToWishlistBtn({
   const handleAddToWishlist = async () => {
     if (!token) {
       dispatch(addToWishlistSlice(productId));
+      dispatch(setError("به لیست علاقه مندی اضافه شد"));
+
       return;
     }
 
     const res = await addHandler(productId, token);
-    console.log(res);
+    console.log(res.wishlist);
+    if (res.wishlist) {
+      dispatch(addToWishlistSlice(productId));
+      dispatch(setError("به لیست علاقه مندی اضافه شد"));
+      return;
+    } else {
+      dispatch(setError("دوباره تلاش کنید"));
+      return;
+    }
   };
   console.log(wishlist);
   return (

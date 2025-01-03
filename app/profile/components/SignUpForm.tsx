@@ -25,6 +25,7 @@ export const SignUpForm = () => {
     }
     console.log(res);
     Cookies.set("session", JSON.stringify({ token: res.token }));
+    dispatch(setError(""));
     dispatch(setUser(res));
     setIsLoading(false);
   };

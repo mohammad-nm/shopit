@@ -28,6 +28,7 @@ export const SignInForm = () => {
       return;
     }
     Cookies.set("session", res.token, { expires: 24 });
+    dispatch(setError(""));
     dispatch(setUser(res));
     const newCart: {
       _id: string;
@@ -43,8 +44,6 @@ export const SignInForm = () => {
       }),
       ...(res.user.cart ? res.user.cart : []),
     ];
-    console.log("oldCart", oldCart);
-    console.log("newCart", newCart);
     if (oldCart.length > 0) {
       const res = await handleUpdateCart(newCart);
       console.log("newCart", res);
