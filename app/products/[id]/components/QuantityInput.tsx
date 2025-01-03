@@ -10,7 +10,7 @@ export default function QuantityInput({
 }) {
   return (
     <div
-      className="flex items-center border p-4 border-gray-300 rounded-md w-full xl:w-fit justify-between"
+      className="flex items-center border sm:p-4 border-gray-300 rounded-md w-full xl:w-fit justify-between"
       dir="ltr"
     >
       <button

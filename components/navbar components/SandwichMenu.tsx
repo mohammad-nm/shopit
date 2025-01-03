@@ -67,8 +67,8 @@ export default function SandwichMenu() {
         <Image src={SandwichSvg} alt="sandwich" width={30} height={30} />
       </button>
       {isOpen && (
-        <div className="absolute top-14 right-0  bg-white p-4 rounded-md shadow-md text-black">
-          <div className="flex flex-col gap-4 text-right p-2 w-40">
+        <div className="absolute top-14 right-0  bg-white sm:p-4  rounded-md shadow-md text-black">
+          <div className="flex flex-col sm:gap-4 text-right p-2 w-40 items-center">
             {categories.map((category, index) => (
               <Link
                 className="hover:bg-gray-100 p-2 rounded-md"

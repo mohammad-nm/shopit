@@ -84,7 +84,7 @@ export default function ProductsList() {
   const router = useRouter();
   return (
     <div
-      className={`p-4 grid ${
+      className={` sm:p-4 gap-4 mb-10 sm:gap-6 justify-between grid ${
         show === "row"
           ? "grid-cols-1"
           : "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4"

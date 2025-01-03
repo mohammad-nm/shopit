@@ -26,7 +26,7 @@ export const ProfileInfo = () => {
             </div>
           </div>
         </div>
-        <div className="w-full p-20 flex flex-col md:flex-row gap-y-8 font-semibold text-gray-400 gap-20 ">
+        <div className="w-full p-4 flex flex-col md:flex-row gap-y-8 font-semibold text-gray-400 gap-20">
           <div className="flex flex-col gap-y-2 font-bold text-sm bg-[#f6f6f6] border border-[#d1d1d1] rounded-md w-full sm:max-w-[300px]">
             <button className="border-b border-[#d1d1d1] bg-[#fcb800] px-4 py-2 text-start">
               پیشخوان

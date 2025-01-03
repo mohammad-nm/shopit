@@ -26,9 +26,9 @@ export default function Product({
 }) {
   const router = useRouter();
   return (
-    <div className="w-full flex p-4 gap-14 border-b-2 border-gray-300 sm:tems-center flex-col sm:flex-row">
-      <div className="sm:w-1/2 w-full flex gap-12 items-center cursor-pointer">
-        <div onClick={() => router.push(`/products/${item._id}`)}>
+    <div className="w-full flex p-4 gap-4 sm:gap-14 border-b-2 border-gray-300 sm:tems-center flex-col sm:flex-row">
+      <div className="sm:w-1/2 w-full flex sm:gap-12 items-center cursor-pointer">
+        <div className="" onClick={() => router.push(`/products/${item._id}`)}>
           <img
             src={item.pictureUrls[0] || ""}
             alt={item.title || ""}
@@ -37,7 +37,7 @@ export default function Product({
           />
         </div>
         <div
-          className="text-xl font-semibold text-center w-full cursor-pointer"
+          className="sm:text-xl font-semibold text-center w-full cursor-pointer"
           onClick={() => router.push(`/products/${item._id}`)}
         >
           {item.title || ""}
@@ -49,20 +49,20 @@ export default function Product({
           <Image src={deleteIcon} alt="delete" width={20} height={20} />
         </button>
       </div>
-      <div className="sm:w-1/2 w-full flex justify-between sm:items-center cursor-pointer flex-wrap sm:flex-row gap-4">
+      <div className="sm:w-1/2 w-full flex justify-between sm:items-center cursor-pointer flex-wrap sm:flex-row gap-4 sm:text-xl">
         <div
-          className="text-xl font-semibold"
+          className=" font-semibold"
           onClick={() => router.push(`/products/${item._id}`)}
         >
           <span className="sm:hidden">قیمت: </span>
           {item.price || ""}
         </div>
-        <div className="text-xl font-semibold">
+        <div className=" font-semibold">
           <span className="sm:hidden">تعداد: </span>
           {cartItem?.quantity || ""}
         </div>
 
-        <div className="text-xl font-semibold ">
+        <div className=" font-semibold ">
           <span className="sm:hidden">قیمت کل: </span>
           {parseFloat((item.price * cartItem?.quantity).toFixed(2))}
         </div>

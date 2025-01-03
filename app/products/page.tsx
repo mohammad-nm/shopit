@@ -20,7 +20,7 @@ export default function Products() {
           <Categories />
           <Filters />
         </div>
-        <div className="w-full md:w-3/4 flex flex-col px-8">
+        <div className="w-full md:w-3/4 flex flex-col sm:px-8">
           <TopBar />
           <Suspense fallback={<SkeletonLoader />}>
             <ProductsList />

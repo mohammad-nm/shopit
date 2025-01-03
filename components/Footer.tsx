@@ -1,7 +1,7 @@
-import Category from "./footer/Category";
-import Links from "./footer/Links";
-import Headlines from "./footer/Headlines";
-import DevelopedBy from "./footer/DevelopedBy";
+import Category from "./footer components/Category";
+import Links from "./footer components/Links";
+import Headlines from "./footer components/Headlines";
+import DevelopedBy from "./footer components/DevelopedBy";
 export default function Footer() {
   return (
     <div className="bg-[#f8f8f8]">

@@ -1,6 +1,6 @@
 "use client";
 import Footer from "@/components/Footer";
-import Headlines from "@/components/footer/Headlines";
+import Headlines from "@/components/footer components/Headlines";
 import Navbar from "@/components/Navbar";
 import Route from "@/components/Route";
 import HeadSlider from "./components/HeadSlider";

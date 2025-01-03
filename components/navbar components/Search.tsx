@@ -13,7 +13,7 @@ export default function Search() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   return (
-    <div className="flex items-center h-12 w-full justify-center">
+    <div className="flex items-center h-8 sm:h-12 w-full justify-center">
       <button
         className="bg-black text-white px-4 py-1 rounded-l-md h-full"
         onClick={() => {

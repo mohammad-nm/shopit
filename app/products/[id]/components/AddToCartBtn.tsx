@@ -34,7 +34,7 @@ export default function AddToCartBtn({
   return (
     <div
       onClick={handleCart}
-      className="w-full xl:w-fit items-center justify-center text-center p-6 text-lg font-semibold bg-[#fcb800] hover:bg-[#fcb155] transition-all duration-300 text-black rounded-md "
+      className="w-full xl:w-fit items-center justify-center text-center sm:p-6 p-2 text-lg font-semibold bg-[#fcb800] hover:bg-[#fcb155] transition-all duration-300 text-black rounded-md "
     >
       {" "}
       <button>افزودن به سبد خرید</button>

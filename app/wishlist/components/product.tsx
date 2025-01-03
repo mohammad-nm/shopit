@@ -18,10 +18,10 @@ interface Item {
 export default function Product({ item }: { item: Item }) {
   const router = useRouter();
   return (
-    <div className="w-full flex px-8 border-b-2 border-gray-300 items-center">
+    <div className="w-full flex p-4 border-b-2 border-gray-300 items-center">
       <div className="flex items-center gap-8 p-4 flex-col sm:flex-row w-full my-4">
         <div
-          className="w-1/2 flex gap-12 items-center cursor-pointer"
+          className="w-full flex items-center cursor-pointer"
           onClick={() => router.push(`/products/${item._id}`)}
         >
           <div>
@@ -32,7 +32,7 @@ export default function Product({ item }: { item: Item }) {
               height={100}
             />
           </div>
-          <div className="text-xl font-semibold text-center w-full cursor-pointer">
+          <div className="sm:text-xl font-semibold text-center w-full cursor-pointer">
             {item.title || ""}
           </div>
         </div>

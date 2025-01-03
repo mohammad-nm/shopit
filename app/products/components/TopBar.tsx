@@ -16,10 +16,10 @@ export default function TopBar() {
     <>
       {" "}
       <div className="mb-6">نتیجه جستجو برای "{`${search}`}"</div>
-      <div className="flex w-full justify-between bg-[#f5f5f5] p-4 items-center rounded-md">
-        <div className="flex gap-8">
+      <div className="flex w-full justify-between bg-[#f5f5f5] sm:p-4 p-2 items-center rounded-md">
+        <div className="flex sm:gap-8 gap-4">
           <div className="hidden xl:block">نوع نمایش</div>
-          <div className="flex gap-6">
+          <div className="flex sm:gap-6 gap-2">
             <div>
               <button onClick={() => dispatch(setProductListShow("row"))}>
                 <Image src={LineShow} alt="list" width={20} height={20} />
@@ -36,7 +36,7 @@ export default function TopBar() {
           <select
             name="sorting"
             id="sorting"
-            className="w-72 border border-gray-300 px-3 h-9 "
+            className="sm:w-72 border border-gray-300 sm:px-3 sm:h-9"
             onChange={(e) => {
               //   setSorting(e.target.value);
               dispatch(setSorting(e.target.value));

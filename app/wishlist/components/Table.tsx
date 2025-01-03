@@ -1,7 +1,9 @@
 export default function Table() {
   return (
     <>
-      <div className="text-5xl font-bold text-center">علاقه مندی ها</div>
+      <div className="sm:text-5xl text-xl font-bold text-center">
+        علاقه مندی ها
+      </div>
       <div className="hidden sm:block">
         <div className="flex flex-col gap-4  ">
           <div className="text-3xl font-bold">لیست علاقه مندی های من</div>

@@ -75,14 +75,16 @@ export default function Cart() {
       <Navbar />
       <Route />
       <div
-        className="flex flex-col gap-4 p-10 text-black justify-center items-center mt-14  w-full xl:w-4/5 mx-auto mb-20"
+        className="flex flex-col sm:p-10 p-4 text-black justify-center items-center sm:mt-14 mt-4  w-full xl:w-4/5 mx-auto sm:mb-20 gap-4"
         dir="rtl"
       >
         {loading ? (
           <Loading />
         ) : (
           <>
-            <div className="text-5xl font-bold mb-20">سبد خرید</div>
+            <div className="md:text-5xl text-3xl font-bold sm:mb-20 mb-10">
+              سبد خرید
+            </div>
             {products.length === 0 ? (
               <Empty />
             ) : (
